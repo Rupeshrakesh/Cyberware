@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Linux IDS – Security Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== SIGN-IN SCREEN ===== -->
+  <section id="login" class="login">
+    <form id="loginForm" class="login-box">
+      <div class="logo">IDS</div>
+      <h1>Linux IDS</h1>
+      <p class="muted">Sign in to see how safe your computers are.</p>
+      <label for="user">Username</label>
+      <input id="user" type="text" autocomplete="username" value="admin">
+      <label for="pass">Password</label>
+      <input id="pass" type="password" autocomplete="current-password">
+      <p id="loginError" class="error" hidden></p>
+      <button class="btn" type="submit">Sign in</button>
+      <p class="hint">Demo sign-in: <b>admin</b> / <b>admin123</b></p>
+    </form>
+  </section>
+
+  <!-- ===== MAIN APP ===== -->
+  <div id="app" class="app" hidden>
+    <aside class="side">
+      <div class="brand"><span class="logo sm">IDS</span><strong>Linux IDS</strong></div>
+      <nav id="nav">
+        <button data-view="overview" class="active">
+          <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg><span>Overview</span>
+        </button>
+        <button data-view="computers">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>Computers</span>
+        </button>
+        <button data-view="warnings">
+          <svg viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0112 0v5l2 2H4zM10 21h4"/></svg><span>Warnings</span>
+          <em id="navCount" class="count" hidden>0</em>
+        </button>
+        <button data-view="logins">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Sign-ins</span>
+        </button>
+      </nav>
+      <button id="logoutBtn" class="logout">Sign out</button>
+    </aside>
+
+    <main class="main">
+      <header class="top">
+        <div>
+          <h2 id="pageTitle">Overview</h2>
+          <p id="pageHint" class="muted"></p>
+        </div>
+        <button id="demoBtn" class="btn ghost">Try a demo</button>
+      </header>
+
+      <section id="view-overview" class="view">
+        <div id="banner" class="banner"></div>
+        <div id="stats" class="stats"></div>
+        <div class="two">
+          <div class="panel">
+            <h3>Needs your attention</h3>
+            <div id="attention" class="list"></div>
+          </div>
+          <div class="panel">
+            <h3>Open warnings by how serious</h3>
+            <div id="levels"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-computers" class="view" hidden>
+        <div id="computerGrid" class="grid"></div>
+      </section>
+
+      <section id="view-warnings" class="view" hidden>
+        <div class="filters">
+          <input id="search" type="search" placeholder="Search by computer, address or name">
+          <select id="levelFilter" aria-label="How serious">
+            <option value="">Any seriousness</option>
+            <option value="CRITICAL">Critical</option>
+            <option value="HIGH">High</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="LOW">Low</option>
+          </select>
+          <select id="statusFilter" aria-label="Status">
+            <option value="">Any status</option>
+            <option value="NEW">New</option>
+            <option value="LOOKING">Looking into it</option>
+            <option value="DONE">Resolved</option>
+          </select>
+        </div>
+        <div id="warningList" class="panel list"></div>
+      </section>
+
+      <section id="view-logins" class="view" hidden>
+        <div class="panel">
+          <p id="loginSummary" class="muted"></p>
+          <div id="loginList" class="list"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ===== WARNING DETAILS (slides in from the right) ===== -->
+  <div id="drawerWrap" hidden>
+    <div id="shade" class="shade"></div>
+    <aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Warning details"></aside>
+  </div>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
